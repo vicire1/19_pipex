@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:47:59 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/02/19 16:29:58 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:32:58 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@
 # include <unistd.h>
 
 typedef struct s_data {
-	int		fd_in;
-	int		fd_out;
+	int		fd[2];
 	int		nb_cmd_args;
 	char	**poss_path;
 	char	***cmd;
