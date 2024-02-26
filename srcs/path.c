@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 13:14:57 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/02/19 18:00:52 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/02/20 11:48:42 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ static char	**get_abs_path(t_data *data, char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		if (envp[i][0] == 'P' && envp[i][1] == 'A' && envp[i][2] == 'T'
-			&& envp[i][3] == 'H' && envp[i][4] == '=')
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 		{
 			data->poss_path = ft_split(&envp[i][5], ':');
 			if (!data->poss_path)
@@ -85,7 +84,7 @@ static char	**find_good_path(t_data *data)
 		else
 		{
 			if (test_path(data, i) == 0)
-				ft_printf("zsh: command not found: %s\n", data->cmd[i][0]);
+				perror(data->cmd[i][0]);
 		}
 		i++;
 	}

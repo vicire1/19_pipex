@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:47:59 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/02/19 19:32:58 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/02/26 18:42:00 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,21 @@
 # include <unistd.h>
 
 typedef struct s_data {
-	int		fd[2];
+	int		fd_in;
+	int		fd_out;
 	int		nb_cmd_args;
 	char	**poss_path;
 	char	***cmd;
 	char	**cmd_path;
+	int		pfd[2];
+	int     prev_pipe;
+	pid_t	pid;
+	int		status;
 }			t_data;
 
 int			get_path(t_data *data, char **envp, char **av);
 int			free_exit(t_data *data);
 int			test_path(t_data *data, int cmd);
+int			ft_pipex(t_data *data, char **envp);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 16:12:49 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/02/19 19:36:44 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:05:04 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	struct_decla(t_data *data, int ac, char **av)
 {
-	data->fd[0] = open(av[1], O_RDONLY);
-	data->fd[1] = open(av[ac - 1], O_RDWR | O_CREAT | O_TRUNC, 0777);
-	if (data->fd[0] == -1 || data->fd[1] == -1)
+	data->fd_in = open(av[1], O_RDONLY);
+	data->fd_out = open(av[ac - 1], O_RDWR | O_CREAT | O_TRUNC, 0000644);
+	if (data->fd_in == -1)
 	{
-		ft_printf("Open function failed.\n");
+		ft_putstr_fd("Infile not found\n", 2);
 		free_exit(data);
 	}
 	data->nb_cmd_args = ac - 3;
@@ -37,7 +37,7 @@ void	print_struct(t_data *data)
 	printf("\n-----------------\n");
 	printf("FD's:             |");
 	printf("\n-----------------\n");
-	printf("fd_in: %i\nfd_out: %i\n", data->fd[0], data->fd[1]);
+	printf("fd_in: %i\nfd_out: %i\n", data->fd_in, data->fd_out);
 	printf("\n-------------------------\n");
 	printf("Number of command arg: %i |", data->nb_cmd_args);
 	printf("\n-------------------------\n");
@@ -80,6 +80,7 @@ int	main(int ac, char **av, char **envp)
 	struct_decla(&data, ac, av);
 	get_path(&data, envp, av);
 	print_struct(&data);                                        // A RETIRER !!!
+	ft_pipex(&data, envp);
 	free_exit(&data);
 	return (1);
 }

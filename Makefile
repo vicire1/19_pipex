@@ -6,7 +6,7 @@
 #    By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 18:08:57 by vdecleir          #+#    #+#              #
-#    Updated: 2024/02/19 19:57:50 by vdecleir         ###   ########.fr        #
+#    Updated: 2024/02/20 11:20:03 by vdecleir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ CFLAGS = -Wall -Wextra -Werror
 SRCS =	srcs/main.c \
 		srcs/path.c \
 		srcs/utils.c \
-		pipes.c \
+		srcs/pipes.c \
 
 OBJ_DIR = objets
 
