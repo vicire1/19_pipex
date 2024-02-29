@@ -6,7 +6,7 @@
 #    By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 18:08:57 by vdecleir          #+#    #+#              #
-#    Updated: 2024/02/20 11:20:03 by vdecleir         ###   ########.fr        #
+#    Updated: 2024/02/29 00:50:51 by vdecleir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS =	srcs/main.c \
 		srcs/path.c \
 		srcs/utils.c \
 		srcs/pipes.c \
+		srcs/here_doc.c \
 
 OBJ_DIR = objets
 
@@ -67,6 +68,8 @@ $(PRINTF_FLAG):
 	@make -s -C $(PRINTF_PATH)
 	@echo "$(GREEN)Ft_printf ready.$(CLOSE)"
 	@touch $(PRINTF_FLAG)
+	
+bonus: all
 
 clean:
 	@$(MAKE) clean -s -C $(LIBFT_PATH)

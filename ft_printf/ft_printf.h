@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 14:28:58 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/02/14 13:33:01 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:01:33 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-int	ft_printf(const char *format, ...);
-int	printf_putstr(char *str);
-int	count_unsigned(unsigned int nb, char *str);
+int	ft_printf(int fd, const char *format, ...);
+int	printf_putstr(char *str, int fd);
+int	count_unsigned(unsigned int nb, char *str, int fd);
 int	ft_strlen2(char *str);
-int	printf_putchar(int c);
-int	count_signed(int nb);
-int	count_adress(void const *adr, char *str);
+int	printf_putchar(int c, int fd);
+int	count_signed(int nb, int fd);
+int	count_adress(void const *adr, char *str, int fd);
 
 #endif

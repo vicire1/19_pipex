@@ -6,39 +6,39 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 14:28:52 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/02/12 18:01:39 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/02/28 13:57:12 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	conversions(va_list *ap, char c)
+static int	conversions(va_list *ap, char c, int fd)
 {
 	int	len;
 
 	len = 0;
 	if (c == 'c')
-		len = printf_putchar(va_arg(*ap, int));
+		len = printf_putchar(va_arg(*ap, int), fd);
 	else if (c == 's')
-		len = printf_putstr(va_arg(*ap, char *));
+		len = printf_putstr(va_arg(*ap, char *), fd);
 	else if (c == '%')
-		len = printf_putchar('%');
+		len = printf_putchar('%', fd);
 	else if (c == 'd' || c == 'i')
-		len = count_signed(va_arg(*ap, int));
+		len = count_signed(va_arg(*ap, int), fd);
 	else if (c == 'u')
-		len = count_unsigned(va_arg(*ap, unsigned int), "0123456789");
+		len = count_unsigned(va_arg(*ap, unsigned int), "0123456789", fd);
 	else if (c == 'x')
-		len = count_unsigned(va_arg(*ap, unsigned int), "0123456789abcdef");
+		len = count_unsigned(va_arg(*ap, unsigned int), "0123456789abcdef", fd);
 	else if (c == 'X')
-		len = count_unsigned(va_arg(*ap, unsigned int), "0123456789ABCDEF");
+		len = count_unsigned(va_arg(*ap, unsigned int), "0123456789ABCDEF", fd);
 	else if (c == 'p')
-		len = count_adress(va_arg(*ap, void const *), "0123456789abcdef");
+		len = count_adress(va_arg(*ap, void const *), "0123456789abcdef", fd);
 	else
-		len = printf_putchar(c);
+		len = printf_putchar(c, fd);
 	return (len);
 }
 
-int	ft_printf(const char *format, ...)
+int	ft_printf(int fd, const char *format, ...)
 {
 	int		i;
 	int		count;
@@ -53,11 +53,11 @@ int	ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			count += conversions(&ap, format[i + 1]);
+			count += conversions(&ap, format[i + 1], fd);
 			i++;
 		}
 		else
-			count += printf_putchar(format[i]);
+			count += printf_putchar(format[i], fd);
 		i++;
 	}
 	va_end(ap);

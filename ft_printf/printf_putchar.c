@@ -6,14 +6,14 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 12:27:22 by vdecleir          #+#    #+#             */
-/*   Updated: 2023/11/17 16:05:46 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/02/28 13:59:18 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	printf_putchar(int c)
+int	printf_putchar(int c, int fd)
 {
-	write(1, &c, 1);
+	write(fd, &c, 1);
 	return (1);
 }

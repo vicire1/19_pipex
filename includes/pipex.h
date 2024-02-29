@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:47:59 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/02/26 18:42:00 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/02/29 00:35:33 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ typedef struct s_data {
 	int     prev_pipe;
 	pid_t	pid;
 	int		status;
+	int		h_doc;
 }			t_data;
 
 int			get_path(t_data *data, char **envp, char **av);
 int			free_exit(t_data *data);
 int			test_path(t_data *data, int cmd);
 int			ft_pipex(t_data *data, char **envp);
+void		ft_here_doc(t_data *data, char *eof);
 
 #endif

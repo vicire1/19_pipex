@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 13:14:57 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/02/20 11:48:42 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/02/29 00:15:23 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	***get_cmds(t_data *data, char **av)
 	int	arg;
 	int	i;
 
-	arg = 2;
+	arg = 2 + data->h_doc;
 	i = 0;
 	data->cmd = malloc(sizeof(char **) * (data->nb_cmd_args + 1));
 	if (!data->cmd)
@@ -84,7 +84,7 @@ static char	**find_good_path(t_data *data)
 		else
 		{
 			if (test_path(data, i) == 0)
-				perror(data->cmd[i][0]);
+				ft_printf(2, "%s: command not found\n", data->cmd[i][0]);
 		}
 		i++;
 	}

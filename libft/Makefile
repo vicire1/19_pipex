@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vdecleir <vdecleir@student.42.fr>          +#+  +:+       +#+         #
+#    By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/17 18:00:13 by vdecleir          #+#    #+#              #
-#    Updated: 2023/11/07 12:55:46 by vdecleir         ###   ########.fr        #
+#    Updated: 2024/02/28 22:17:32 by vdecleir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,23 +49,22 @@ SRCS	 	= 	ft_atoi.c \
 				ft_strtrim.c \
 				ft_substr.c \
 				ft_tolower.c \
-				ft_toupper.c
-
-SRCSBON =		ft_lstadd_back_bonus.c \
+				ft_toupper.c \
+				ft_lstadd_back_bonus.c \
 				ft_lstadd_front_bonus.c \
 				ft_lstlast_bonus.c \
 				ft_lstnew_bonus.c \
 				ft_lstsize_bonus.c \
 				ft_lstdelone_bonus.c \
 				ft_lstclear_bonus.c \
-				ft_lstiter_bonus.c\
-				ft_lstmap_bonus.c
+				ft_lstiter_bonus.c \
+				ft_lstmap_bonus.c \
+				GNL/get_next_line.c \
+				GNL/get_next_line_utils.c \
 
 INCLUDES	= -I libft.h
 
 OBJECTS	= $(SRCS:.c=.o)
-
-OBJECTSBON = $(SRCSBON:.c=.o)
 
 RM			= rm -f
 
@@ -74,15 +73,12 @@ RM			= rm -f
 
 $(NAME):	$(OBJECTS)
 			ar -rcs $(NAME) $(OBJECTS)
-			
-bonus:		$(OBJECTSBON)
-			ar -rcs $(NAME) $(OBJECTSBON)
 
 all:		$(NAME)
 
 
 clean:
-			$(RM) $(OBJECTS) $(OBJECTSBON)
+			$(RM) $(OBJECTS)
 
 fclean:		clean
 			$(RM) $(NAME)

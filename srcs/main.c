@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 16:12:49 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/02/26 16:05:04 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/02/29 00:53:58 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,11 @@
 
 void	struct_decla(t_data *data, int ac, char **av)
 {
-	data->fd_in = open(av[1], O_RDONLY);
 	data->fd_out = open(av[ac - 1], O_RDWR | O_CREAT | O_TRUNC, 0000644);
-	if (data->fd_in == -1)
-	{
-		ft_putstr_fd("Infile not found\n", 2);
-		free_exit(data);
-	}
-	data->nb_cmd_args = ac - 3;
 	data->poss_path = NULL;
 	data->cmd = NULL;
 	data->cmd_path = NULL;
+	data->h_doc = 0;
 }
 
 void	print_struct(t_data *data)
@@ -78,8 +72,24 @@ int	main(int ac, char **av, char **envp)
 	if (ac < 5)
 		return (0);
 	struct_decla(&data, ac, av);
+	if (ft_strncmp(av[1], "here_doc", 8) == 0)
+	{
+		if (ac < 6)
+			free_exit(&data);
+		ft_here_doc(&data, av[2]);
+	}
+	else
+	{
+		data.fd_in = open(av[1], O_RDONLY);
+		if (data.fd_in == -1)
+		{
+			perror("open() error");
+			free_exit(&data);
+		}
+	}
+	data.nb_cmd_args = ac - 3 - data.h_doc;
 	get_path(&data, envp, av);
-	print_struct(&data);                                        // A RETIRER !!!
+	//print_struct(&data);             // A RETIRER !!!
 	ft_pipex(&data, envp);
 	free_exit(&data);
 	return (1);
