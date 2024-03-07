@@ -6,91 +6,53 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 16:12:49 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/02/29 00:53:58 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/03/07 19:01:33 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	struct_decla(t_data *data, int ac, char **av)
+static void	struct_decla(t_data *data)
 {
-	data->fd_out = open(av[ac - 1], O_RDWR | O_CREAT | O_TRUNC, 0000644);
 	data->poss_path = NULL;
 	data->cmd = NULL;
 	data->cmd_path = NULL;
+	data->pfd[0] = -1;
+	data->pfd[1] = -1;
+	data->pid = -1;
+	data->status = 1;
 	data->h_doc = 0;
+	data->inv_fd_in = 0;
 }
 
-void	print_struct(t_data *data)
+static void	open_in(t_data *data, char *infile, char *outfile)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	printf("\n-----------------\n");
-	printf("FD's:             |");
-	printf("\n-----------------\n");
-	printf("fd_in: %i\nfd_out: %i\n", data->fd_in, data->fd_out);
-	printf("\n-------------------------\n");
-	printf("Number of command arg: %i |", data->nb_cmd_args);
-	printf("\n-------------------------\n");
-	printf("\n-----------------\n");
-	printf("Possible Paths:  |");
-	printf("\n-----------------\n");
-	while (data->poss_path[i])
+	data->fd_in = open(infile, O_RDONLY);
+	if (data->fd_in == -1)
 	{
-		printf("%s\n", data->poss_path[i]);
-		i++;
+		ft_printf(2, "no such file or directory: %s\n", infile);
+		data->inv_fd_in = 1;
 	}
-	printf("\n-----------------\n");
-	printf("Arguments:       |");
-	printf("\n-----------------\n");
-	i = 0;
-	while (data->cmd[i])
-	{
-		j = 0;
-		printf("\n---command---\n");
-		printf("%s\n", data->cmd[i][j]);
-		j++;
-		printf("\n---param---\n");
-		while (data->cmd[i][j])
-		{
-			printf("%s\n", data->cmd[i][j]);
-			j++;
-		}
-		printf("\n---abs path---\n");
-		printf("%s\n\n\n", data->cmd_path[i]);
-		i++;
-	}
+	data->fd_out = open(outfile, O_RDWR | O_CREAT | O_TRUNC, 0000644);
 }
-
 int	main(int ac, char **av, char **envp)
 {
 	t_data	data;
 
 	if (ac < 5)
-		return (0);
-	struct_decla(&data, ac, av);
+		return (127);
+	struct_decla(&data);
 	if (ft_strncmp(av[1], "here_doc", 8) == 0)
 	{
 		if (ac < 6)
-			free_exit(&data);
-		ft_here_doc(&data, av[2]);
+			free_exit(&data, data.status);
+		ft_here_doc(&data, av[2], av[ac - 1]);
 	}
 	else
-	{
-		data.fd_in = open(av[1], O_RDONLY);
-		if (data.fd_in == -1)
-		{
-			perror("open() error");
-			free_exit(&data);
-		}
-	}
+		open_in(&data, av[1], av[ac - 1]);
 	data.nb_cmd_args = ac - 3 - data.h_doc;
 	get_path(&data, envp, av);
-	//print_struct(&data);             // A RETIRER !!!
 	ft_pipex(&data, envp);
-	free_exit(&data);
+	free_exit(&data, 0);
 	return (1);
 }

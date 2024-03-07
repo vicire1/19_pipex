@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:04:54 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/02/29 00:36:25 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/03/07 18:44:42 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	free_str_tab(char **tab, unsigned int nb)
 	tab = NULL;
 }
 
-int	free_exit(t_data *data)
+int	free_exit(t_data *data, int status)
 {
 	int	i;
 
@@ -58,7 +58,7 @@ int	free_exit(t_data *data)
 	}
 	if (data->cmd_path)
 		free_str_tab(data->cmd_path, data->nb_cmd_args);
-	exit(data->status);
+	exit(status);
 }
 
 int	test_path(t_data *data, int cmd)
