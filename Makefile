@@ -6,7 +6,7 @@
 #    By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 18:08:57 by vdecleir          #+#    #+#              #
-#    Updated: 2024/02/29 00:50:51 by vdecleir         ###   ########.fr        #
+#    Updated: 2024/03/09 15:55:19 by vdecleir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,8 @@ CLOSE = \033[0m
 
 NAME = pipex
 
+NAME_BONUS = pipex_bonus
+
 CC = cc
 
 RM = rm -rf
@@ -28,11 +30,18 @@ SRCS =	srcs/main.c \
 		srcs/path.c \
 		srcs/utils.c \
 		srcs/pipes.c \
-		srcs/here_doc.c \
+
+SRCS_BON =	srcs_bonus/here_doc_bonus.c \
+			srcs_bonus/main_bonus.c \
+			srcs_bonus/path_bonus.c \
+			srcs_bonus/utils_bonus.c \
+			srcs_bonus/pipes_bonus.c \
 
 OBJ_DIR = objets
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
+
+OBJ_BON = $(addprefix $(OBJ_DIR)/, $(SRCS_BON:.c=.o))
 
 LIBFT = libft.a
 
@@ -50,12 +59,17 @@ $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-all: $(LIBFT_FLAG) $(PRINTF_FLAG) $(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(LIBFT_FLAG) $(PRINTF_FLAG)
 	@echo "$(ORANGE)Compiling Pipex...$(CLOSE)"
 	@$(CC) $(OBJS) -L$(LIBFT_PATH) -lft -L$(PRINTF_PATH) -lftprintf -o $(NAME)
 	@echo "$(GREEN_BOLD)The Pipex executable is ready.$(CLOSE)"
+
+bonus: $(OBJ_BON) $(LIBFT_FLAG) $(PRINTF_FLAG)
+	@echo "$(ORANGE)Compiling Pipex bonus part...$(CLOSE)"
+	@$(CC) $(SRCS_BON) -L$(LIBFT_PATH) -lft -L$(PRINTF_PATH) -lftprintf -o $(NAME_BONUS)
+	@echo "$(GREEN_BOLD)The Pipex bonus part executable is ready.$(CLOSE)"
 
 $(LIBFT_FLAG):
 	@echo "$(ORANGE)Compiling Libft...$(CLOSE)"
@@ -68,8 +82,6 @@ $(PRINTF_FLAG):
 	@make -s -C $(PRINTF_PATH)
 	@echo "$(GREEN)Ft_printf ready.$(CLOSE)"
 	@touch $(PRINTF_FLAG)
-	
-bonus: all
 
 clean:
 	@$(MAKE) clean -s -C $(LIBFT_PATH)
@@ -78,8 +90,10 @@ clean:
 	@echo "$(YELLOW)Objects correctly deleted.$(CLOSE)"
 
 fclean: clean
-	@$(RM) $(NAME) $(LIBFT_PATH)/$(LIBFT) $(LIBFT_FLAG)
-	@$(RM) $(NAME) $(PRINTF_PATH)/$(PRINTF) $(PRINTF_FLAG)
+	@$(RM) $(NAME)
+	@$(RM) $(NAME_BONUS)
+	@$(RM) $(LIBFT_PATH)/$(LIBFT) $(LIBFT_FLAG)
+	@$(RM) $(PRINTF_PATH)/$(PRINTF) $(PRINTF_FLAG)
 	@echo "$(YELLOW)Executable file(s) correctly deleted.$(CLOSE)"
 
 re: fclean all

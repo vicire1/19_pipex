@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 15:47:59 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/03/09 14:59:25 by vdecleir         ###   ########.fr       */
+/*   Created: 2024/03/09 14:56:53 by vdecleir          #+#    #+#             */
+/*   Updated: 2024/03/09 14:57:04 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include "../ft_printf/ft_printf.h"
 # include "../libft/libft.h"
@@ -31,6 +31,7 @@ typedef struct s_data {
 	int		pfd[2];
 	pid_t	pid;
 	int		status;
+	int		h_doc;
 	int		inv_fd_in;
 }			t_data;
 
@@ -38,5 +39,6 @@ int			get_path(t_data *data, char **envp, char **av);
 int			free_exit(t_data *data, int status);
 int			test_path(t_data *data, int cmd);
 int			ft_pipex(t_data *data, char **envp);
+void		ft_here_doc(t_data *data, char *eof, char *outfile);
 
 #endif

@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path.c                                             :+:      :+:    :+:   */
+/*   path_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/14 13:14:57 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/03/09 15:03:55 by vdecleir         ###   ########.fr       */
+/*   Created: 2024/03/09 14:54:07 by vdecleir          #+#    #+#             */
+/*   Updated: 2024/03/09 14:58:32 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "../includes/pipex_bonus.h"
 
 static char	***get_cmds(t_data *data, char **av)
 {
 	int	arg;
 	int	i;
 
-	arg = 2;
+	arg = 2 + data->h_doc;
 	i = 0;
 	data->cmd = malloc(sizeof(char **) * (data->nb_cmd_args + 1));
 	if (!data->cmd)

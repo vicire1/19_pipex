@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 16:12:49 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/03/09 15:20:14 by vdecleir         ###   ########.fr       */
+/*   Created: 2024/03/09 14:54:10 by vdecleir          #+#    #+#             */
+/*   Updated: 2024/03/09 14:58:07 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "../includes/pipex_bonus.h"
 
 static void	struct_decla(t_data *data)
 {
@@ -21,24 +21,36 @@ static void	struct_decla(t_data *data)
 	data->pfd[1] = -1;
 	data->pid = -1;
 	data->status = 1;
+	data->h_doc = 0;
 	data->inv_fd_in = 0;
 }
 
+static void	open_in(t_data *data, char *infile, char *outfile)
+{
+	data->fd_in = open(infile, O_RDONLY);
+	if (data->fd_in == -1)
+	{
+		ft_printf(2, "no such file or directory: %s\n", infile);
+		data->inv_fd_in = 1;
+	}
+	data->fd_out = open(outfile, O_RDWR | O_CREAT | O_TRUNC, 0000644);
+}
 int	main(int ac, char **av, char **envp)
 {
 	t_data	data;
 
-	if (ac != 5)
+	if (ac < 5)
 		return (127);
 	struct_decla(&data);
-	data.fd_in = open(av[1], O_RDONLY);
-	if (data.fd_in == -1)
+	if (ft_strncmp(av[1], "here_doc", 8) == 0)
 	{
-		ft_printf(2, "no such file or directory: %s\n", av[1]);
-		data.inv_fd_in = 1;
+		if (ac < 6)
+			free_exit(&data, data.status);
+		ft_here_doc(&data, av[2], av[ac - 1]);
 	}
-	data.fd_out = open(av[ac - 1], O_RDWR | O_CREAT | O_TRUNC, 0000644);
-	data.nb_cmd_args = ac - 3;
+	else
+		open_in(&data, av[1], av[ac - 1]);
+	data.nb_cmd_args = ac - 3 - data.h_doc;
 	get_path(&data, envp, av);
 	ft_pipex(&data, envp);
 	free_exit(&data, 0);
