@@ -6,13 +6,36 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:54:04 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/03/09 14:59:11 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:36:12 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
 
 static void	ft_child_exec(t_data *data, char **envp, int i)
+{
+	close(data->pfd[0]);
+	if (data->inv_fd_in == 1 && i == 0)
+	{
+		close(data->pfd[1]);
+		exit (0);
+	}
+	dup2(data->pfd[1], STDOUT_FILENO);
+	close(data->pfd[1]);
+	if (i == data->nb_cmd_args - 1)
+	{
+		dup2(data->fd_out, STDOUT_FILENO);
+		close(data->fd_out);
+	}
+	if (!data->cmd_path[i])
+	{
+		ft_printf(2, "%s: command not found\n", data->cmd[i][0]);
+		exit(127);
+	}
+	execve(data->cmd_path[i], data->cmd[i], envp);
+}
+
+static void	ft_child(t_data *data, char **envp, int i)
 {
 	if (pipe(data->pfd) == -1)
 	{
@@ -26,27 +49,22 @@ static void	ft_child_exec(t_data *data, char **envp, int i)
 		free_exit(data, data->status);
 	}
 	if (data->pid == 0)
-	{
-		dup2(data->pfd[1], STDOUT_FILENO);
-		close(data->pfd[0]);
-		close(data->pfd[1]);
-		if (i == data->nb_cmd_args - 1)
-			dup2(data->fd_out, STDOUT_FILENO);
-		if (!data->cmd_path[i])
-			exit(127);
-		execve(data->cmd_path[i], data->cmd[i], envp);
-	}
+		ft_child_exec(data, envp, i);
 }
 
 int	ft_pipex(t_data *data, char **envp)
 {
 	int	i;
 
-	i = data->inv_fd_in;
-	dup2(data->fd_in, STDIN_FILENO);
+	i = 0;
+	if (data->h_doc == 0)
+	{
+		dup2(data->fd_in, STDIN_FILENO);
+		close(data->fd_in);
+	}
 	while (i < data->nb_cmd_args)
 	{
-		ft_child_exec(data, envp, i);
+		ft_child(data, envp, i);
 		dup2(data->pfd[0], STDIN_FILENO);
 		close(data->pfd[0]);
 		close(data->pfd[1]);

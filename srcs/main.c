@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 16:12:49 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/03/09 15:20:14 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/03/10 16:52:02 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	struct_decla(t_data *data)
 	data->pfd[0] = -1;
 	data->pfd[1] = -1;
 	data->pid = -1;
-	data->status = 1;
+	data->status = 0;
 	data->inv_fd_in = 0;
 }
 
@@ -41,6 +41,6 @@ int	main(int ac, char **av, char **envp)
 	data.nb_cmd_args = ac - 3;
 	get_path(&data, envp, av);
 	ft_pipex(&data, envp);
-	free_exit(&data, 0);
-	return (1);
+	free_exit(&data, data.status);
+	return (0);
 }

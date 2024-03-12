@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:54:10 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/03/09 14:58:07 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:32:40 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	open_in(t_data *data, char *infile, char *outfile)
 	}
 	data->fd_out = open(outfile, O_RDWR | O_CREAT | O_TRUNC, 0000644);
 }
+
 int	main(int ac, char **av, char **envp)
 {
 	t_data	data;

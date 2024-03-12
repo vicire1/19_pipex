@@ -6,7 +6,7 @@
 #    By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 18:08:57 by vdecleir          #+#    #+#              #
-#    Updated: 2024/03/09 15:55:19 by vdecleir         ###   ########.fr        #
+#    Updated: 2024/03/10 12:25:17 by vdecleir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ $(NAME): $(OBJS) $(LIBFT_FLAG) $(PRINTF_FLAG)
 
 bonus: $(OBJ_BON) $(LIBFT_FLAG) $(PRINTF_FLAG)
 	@echo "$(ORANGE)Compiling Pipex bonus part...$(CLOSE)"
-	@$(CC) $(SRCS_BON) -L$(LIBFT_PATH) -lft -L$(PRINTF_PATH) -lftprintf -o $(NAME_BONUS)
+	@$(CC) $(OBJ_BON) -L$(LIBFT_PATH) -lft -L$(PRINTF_PATH) -lftprintf -o $(NAME)
 	@echo "$(GREEN_BOLD)The Pipex bonus part executable is ready.$(CLOSE)"
 
 $(LIBFT_FLAG):

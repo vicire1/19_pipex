@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:54:07 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/03/09 14:58:32 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/03/10 03:33:14 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,7 @@ static char	**find_good_path(t_data *data)
 		if (access(data->cmd[i][0], X_OK) == 0)
 			data->cmd_path[i] = ft_strdup(data->cmd[i][0]);
 		else if (data->poss_path)
-		{
-			if (test_path(data, i) == 0)
-				ft_printf(2, "%s: command not found\n", data->cmd[i][0]);
-		}
+			test_path(data, i);
 		i++;
 	}
 	data->cmd_path[i] = NULL;
