@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 13:14:57 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/03/10 03:30:35 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/03/15 12:33:51 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	**get_abs_path(t_data *data, char **envp)
 	int	i;
 
 	i = 0;
-	while (envp[i])
+	while (envp && envp[i])
 	{
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 		{
@@ -79,6 +79,7 @@ static char	**find_good_path(t_data *data)
 		free_exit(data, data->status);
 	while (data->cmd[i])
 	{
+		data->cmd_path[i] = NULL;
 		if (access(data->cmd[i][0], X_OK) == 0)
 			data->cmd_path[i] = ft_strdup(data->cmd[i][0]);
 		else if (data->poss_path)

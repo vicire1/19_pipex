@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:54:10 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/03/11 17:32:40 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:40:48 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(int ac, char **av, char **envp)
 	if (ac < 5)
 		return (127);
 	struct_decla(&data);
-	if (ft_strncmp(av[1], "here_doc", 8) == 0)
+	if (ft_strncmp(av[1], "here_doc\0", 9) == 0)
 	{
 		if (ac < 6)
 			free_exit(&data, data.status);

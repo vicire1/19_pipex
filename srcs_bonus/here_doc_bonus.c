@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 18:34:00 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/03/09 14:58:16 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:50:31 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static void	ft_here_doc_child(int *pfd, char *eof)
 {
-	char	*line;
-	int		n;
+	char		*line;
+	size_t		n;
 
 	close(pfd[0]);
 	n = ft_strlen(eof);
 	line = get_next_line(0);
-	while (line && ft_strncmp(line, eof, n) != 0)
+	while (ft_strncmp(line, eof, n) != 0 || n != ft_strlen(line) - 1)
 	{
 		ft_putstr_fd(line, pfd[1]);
 		free(line);

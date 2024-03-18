@@ -6,7 +6,7 @@
 /*   By: vdecleir <vdecleir@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:54:01 by vdecleir          #+#    #+#             */
-/*   Updated: 2024/03/09 14:59:04 by vdecleir         ###   ########.fr       */
+/*   Updated: 2024/03/15 12:44:49 by vdecleir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	test_path(t_data *data, int cmd)
 	char	*temp;
 
 	i = 0;
-	data->cmd_path[cmd] = NULL;
 	while (data->poss_path[i])
 	{
 		temp = ft_strjoin(data->poss_path[i], data->cmd[cmd][0]);
