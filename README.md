@@ -35,7 +35,7 @@ To compile the project, use the provided Makefile with the following rules:
 
   ```bash
   $ make
-  '''
+  ```
 
 ## Usage
 
