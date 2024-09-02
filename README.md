@@ -49,13 +49,13 @@ This will execute **`cmd1`** with **`file1`** as input, then pipe the output to 
 
 ### Example
 
-bash```
+```bash
 $ ./pipex infile "ls -l" "wc -l" outfile
 ```
 
 This should behave like:
 
-bash```
+```bash
 $ < infile ls -l | wc -l > outfile
 ```
 
@@ -65,23 +65,23 @@ You can earn extra points by implementing the following features:
 
 - **Multiple Pipes**: Allow the program to handle more than two commands, chaining them together as in:
 
-bash```
+```bash
 $ ./pipex file1 cmd1 cmd2 cmd3 ... cmdn file2
 ```
 
 This should behave like:
 
-bash```
+```bash
 $ < file1 cmd1 | cmd2 | cmd3 ... | cmdn > file2
 ```
 - **Here Document** Support: Implement support for **`here_doc`** where the first parameter is "here_doc":
 
-bahs```
+```bahs
 $ ./pipex here_doc LIMITER cmd cmd1 file
 ```
 
 This should behave like:
 
-bash```
+```bash
 $ cmd << LIMITER | cmd1 >> file
 ```
